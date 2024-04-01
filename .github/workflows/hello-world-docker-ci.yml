@@ -2,7 +2,8 @@ name: CI Build for Docker Action
 on:
   push:
     branches: [ main ]
-    paths: [ hello-world-docker-action/** ]
+    # todo: better move to a separate folder
+    # paths: [ ./action.yml ]
   workflow_dispatch:
 
 jobs:
@@ -14,9 +15,9 @@ jobs:
 
       - name: Run my own container action
         id: hello-action
-        uses: ./hello-world-docker-action
+        uses: ./
         with:
-          who-to-greet: '@wulfland'
+          who-to-greet: '@abc'
 
       - name: Output time set in the container
         run: echo "The time was ${{ steps.hello-action.outputs.time }} when the action said hello"
