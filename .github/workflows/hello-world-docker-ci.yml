@@ -22,12 +22,15 @@ jobs:
         id: hello-action
         uses: ./
         with:
+          who-to-greet: '@abc'
 
-
+      - name: Output time set in the container
+        run: echo "The time was ${{ steps.hello-action.outputs.time }} when the action said hello"
   Test:
     runs-on: ubuntu-latest
     if: github.event_name == 'workflow_dispatch'
-    needs: Build
+    # TODO
+    # needs: Build
     environment: Test
     steps:
       - run: echo "🧪 Testing..."
@@ -35,7 +38,8 @@ jobs:
   Load-Test:
     runs-on: ubuntu-latest
     if: github.event_name == 'workflow_dispatch'
-    needs: Build
+    # TODO
+    # needs: Build
     environment: Load-Test
     steps:
       - run: |
@@ -65,7 +69,3 @@ jobs:
       - run: |
           echo "🚀 Step 5..."
           sleep 10
-          who-to-greet: '@abc'
-
-      - name: Output time set in the container
-        run: echo "The time was ${{ steps.hello-action.outputs.time }} when the action said hello"
